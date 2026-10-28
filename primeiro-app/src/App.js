@@ -5,22 +5,18 @@ import { useState } from "react";
 // Este é um "Componente Funcional" (uma função JavaScript normal que retorna elementos visuais).
 // Regra importante: o nome de um componente React DEVE começar com letra maiúscula (ex: "App").
 function App() {
-
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [idade, setIdade] = useState(0);
-
-  const [user, setUser] = useState({});
+  const [input, setInput] = useState('');
+  const [tarefas, setTarefas] = useState([
+    'Aprender a usar ReactJS',
+    'Criar sistema de controle de encomendas'
+  ]);
 
 
   function handleRegister(e) {
     e.preventDefault();
 
-    setUser({
-      nome: nome,
-      idade: idade,
-      email: email,
-    })
+    setTarefas([...tarefas, input])
+    setInput('')
   }
 
 
@@ -28,14 +24,9 @@ function App() {
     <div>
       <h1>Cadastro de Usuários</h1>
       <form action="" onSubmit={handleRegister}>
-        <label htmlFor="nome">Nome:</label>
-        <input type="text" id="nome" placeholder="" value={nome} onChange={(e) => setNome(e.target.value)} />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <br />
-        <label htmlFor="idade">Idade:</label>
-        <input type="number" id="idade" placeholder="Idade" value={idade} onChange={(e) => setIdade(e.target.value)} />
+        <label htmlFor="tarefas">Nome da Tarefa:</label>
+        <input type="text" id="tarefas" placeholder="Digite uma tarefa"
+          value={input} onChange={(e) => setInput(e.target.value)} />
         <br />
         <button type="submit">Cadastrar</button>
       </form>
@@ -47,9 +38,9 @@ function App() {
       <div>
         <h2>Usuários cadastrados</h2>
         <ul>
-          <li>Nome: {user.nome}</li>
-          <li>Email: {user.email}</li>
-          <li>Idade: {user.idade}</li>
+          {tarefas.map(tarefa => (
+            <li key={tarefa}>{tarefa}</li>
+          ))}
         </ul>
       </div>
     </div>
