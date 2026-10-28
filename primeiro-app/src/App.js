@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Nome from "./components/Nome";
 
 // 1. DEFINIÇÃO DO COMPONENTE:
 // Em React, criamos a interface por meio de "Componentes".
@@ -7,23 +6,52 @@ import Nome from "./components/Nome";
 // Regra importante: o nome de um componente React DEVE começar com letra maiúscula (ex: "App").
 function App() {
 
-  function handleMudarNome(nome) {
-    alert(`Vou mudar para ${nome}`)
-    setNome(nome)
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [idade, setIdade] = useState(0);
+
+  const [user, setUser] = useState({});
+
+
+  function handleRegister(e) {
+    e.preventDefault();
+
+    setUser({
+      nome: nome,
+      idade: idade,
+      email: email,
+    })
   }
 
-  const [nome, setNome] = useState('Leonardo');
-  // 2. RETORNO DO COMPONENTE (JSX):
-  // O que está dentro do return parece HTML, mas na verdade é JSX (JavaScript XML).
-  // O JSX permite escrever a estrutura visual diretamente dentro do código JavaScript.
-  // Regra importante: o return deve sempre ter um único elemento pai envolvendo tudo (neste caso, a <div>).
+
   return (
     <div>
-      {/* 3. ELEMENTO VISUAL: */}
-      {/* Aqui estamos renderizando uma tag de título tradicional, agora gerenciada pelo React */}
-      <h1>Olá mundo em React</h1>
-      <h2>Bem vindo {nome}!</h2>
-      <button onClick={() => handleMudarNome("Lúcia")}>Mudar Nome</button>
+      <h1>Cadastro de Usuários</h1>
+      <form action="" onSubmit={handleRegister}>
+        <label htmlFor="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <br />
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <br />
+        <label htmlFor="idade">Idade:</label>
+        <input type="number" id="idade" placeholder="Idade" value={idade} onChange={(e) => setIdade(e.target.value)} />
+        <br />
+        <button type="submit">Cadastrar</button>
+      </form>
+
+      <br />
+      <hr />
+      <br />
+
+      <div>
+        <h2>Usuários cadastrados</h2>
+        <ul>
+          <li>Nome: {user.nome}</li>
+          <li>Email: {user.email}</li>
+          <li>Idade: {user.idade}</li>
+        </ul>
+      </div>
     </div>
   );
 }
